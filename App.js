@@ -1,8 +1,9 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList, CheckBox } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialIcons } from '@expo/vector-icons';
+import { createTable } from './databaseFunctions'; // Importe aqui a função createTable
 
 const icons = {
   Estoque: 'storage',
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
 function LoginScreen({ navigation }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  //const [username, setUsername] = React.useState('');
 
   const handleLogin = () => {
     navigation.navigate('Menu');
@@ -252,6 +254,10 @@ function AddExpenseScreen({ navigation }) {
 const Stack = createStackNavigator();
 
 export default function App() {
+  useEffect(() => {
+    createTable();
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
